@@ -1,7 +1,7 @@
 ---
 name: "\U0001F36A TIL"
 about: 투데이 아이 러언
-title: "[TIL]"
+title: "\U0001F36A TIL/ "
 labels: ''
 assignees: ''
 
