@@ -1,11 +1,12 @@
-﻿using UnityEngine;
-
-// C# 전처리기 - ENABLE_INPUT_SYSTEM이 정의되어 있을 때만
-// #if ENABLE_INPUT_SYSTEM
+﻿ using UnityEngine;
+#if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
-// #endif
+#endif
 
-namespace PersonController
+/* Note: animations are called via the controller for both the character and capsule using animator null checks
+ */
+
+namespace StarterAssets
 {
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM 
@@ -13,10 +14,9 @@ namespace PersonController
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
-
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
-        public float MoveSpeed = 3.0f;
+        public float MoveSpeed = 2.0f;
 
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
@@ -28,7 +28,6 @@ namespace PersonController
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
 
-        // 오디오 클립
         public AudioClip LandingAudioClip;
         public AudioClip[] FootstepAudioClips;
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
@@ -71,7 +70,7 @@ namespace PersonController
         public float BottomClamp = -30.0f;
 
         [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
-        public float CameraAngleOverride = 1.0f;
+        public float CameraAngleOverride = 0.0f;
 
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
@@ -99,10 +98,12 @@ namespace PersonController
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
 
+#if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
+#endif
         private Animator _animator;
         private CharacterController _controller;
-        private PersonControllerInputs _input;
+        private StarterAssetsInputs _input;
         private GameObject _mainCamera;
 
         private const float _threshold = 0.01f;
@@ -113,7 +114,11 @@ namespace PersonController
         {
             get
             {
+#if ENABLE_INPUT_SYSTEM
                 return _playerInput.currentControlScheme == "KeyboardMouse";
+#else
+				return false;
+#endif
             }
         }
 
@@ -129,22 +134,16 @@ namespace PersonController
 
         private void Start()
         {
-
-            #if ENABLE_INPUT_SYSTEM
-                Debug.Log("새 Input System 활성화됨");
-            #elif ENABLE_LEGACY_INPUT_MANAGER
-                Debug.Log("Old Input Manager 사용 중");
-            #else
-                Debug.Log("Input 시스템이 비활성화됨");
-            #endif
-
-
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-
+            
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
-            _input = GetComponent<PersonControllerInputs>();
+            _input = GetComponent<StarterAssetsInputs>();
+#if ENABLE_INPUT_SYSTEM 
             _playerInput = GetComponent<PlayerInput>();
+#else
+			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
+#endif
 
             AssignAnimationIDs();
 
@@ -197,7 +196,7 @@ namespace PersonController
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
                 //Don't multiply mouse input by Time.deltaTime;
-                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 5.0f : Time.deltaTime;
+                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
                 _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
                 _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;

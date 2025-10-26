@@ -1,9 +1,11 @@
 using UnityEngine;
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+#endif
 
-namespace PersonController
+namespace StarterAssets
 {
-	public class PersonControllerInputs : MonoBehaviour
+	public class StarterAssetsInputs : MonoBehaviour
 	{
 		[Header("Character Input Values")]
 		public Vector2 move;
@@ -18,32 +20,30 @@ namespace PersonController
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
-		// 캐릭터 움직임 (WASD)
+#if ENABLE_INPUT_SYSTEM
 		public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
 
-		// 화면 방향 (마우스 커서 방향)
 		public void OnLook(InputValue value)
 		{
-			if (cursorInputForLook)
+			if(cursorInputForLook)
 			{
 				LookInput(value.Get<Vector2>());
 			}
 		}
 
-		// 점푸 (Space) - 비활성화
-		// public void OnJump(InputValue value)
-		// {
-		// 	JumpInput(value.isPressed);
-		// }
+		public void OnJump(InputValue value)
+		{
+			JumpInput(value.isPressed);
+		}
 
-		// 달리기 (Shift)
 		public void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
 		}
+#endif
 
 
 		public void MoveInput(Vector2 newMoveDirection)

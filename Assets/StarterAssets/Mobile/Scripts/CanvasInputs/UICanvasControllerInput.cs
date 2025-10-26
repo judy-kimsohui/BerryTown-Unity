@@ -1,31 +1,31 @@
 using UnityEngine;
 
-namespace PersonController
+namespace StarterAssets
 {
     public class UICanvasControllerInput : MonoBehaviour
     {
 
         [Header("Output")]
-        public PersonControllerInputs PersonControllerInputs;
+        public StarterAssetsInputs starterAssetsInputs;
 
         public void VirtualMoveInput(Vector2 virtualMoveDirection)
         {
-            PersonControllerInputs.MoveInput(virtualMoveDirection);
+            starterAssetsInputs.MoveInput(virtualMoveDirection);
         }
 
         public void VirtualLookInput(Vector2 virtualLookDirection)
         {
-            PersonControllerInputs.LookInput(virtualLookDirection);
+            starterAssetsInputs.LookInput(virtualLookDirection);
         }
 
         public void VirtualJumpInput(bool virtualJumpState)
         {
-            PersonControllerInputs.JumpInput(virtualJumpState);
+            starterAssetsInputs.JumpInput(virtualJumpState);
         }
 
         public void VirtualSprintInput(bool virtualSprintState)
         {
-            PersonControllerInputs.SprintInput(virtualSprintState);
+            starterAssetsInputs.SprintInput(virtualSprintState);
         }
         
     }
