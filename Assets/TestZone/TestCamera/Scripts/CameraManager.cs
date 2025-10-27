@@ -12,13 +12,7 @@ namespace TestCamera
         [SerializeField] private PlayerInputHandler inputHandler;
 
         private int currentIndex = 0;
-        private bool isCinematicActive = false;
 
-        private void Awake()
-        {
-            // inputHandler = GetComponent<PlayerInputHandler>();
-        }
-        
         private void Start()
         {
             ActivateCamera(0); // Player 카메라 시작
@@ -37,10 +31,6 @@ namespace TestCamera
                 ActivateCamera(2);
             else if (inputHandler.Camera_NPC3Pressed)
                 ActivateCamera(3);
-
-            // 컷신 트리거
-            // if (inputHandler.Camera_CutScenePressed)
-            //     StartCoroutine(PlayCinematic(3, 3f));
         }
 
         private void ActivateCamera(int index)
@@ -50,32 +40,36 @@ namespace TestCamera
             // 대상 카메라만 높임
             virtualCameras[index].Priority = 10;
             virtualCameras[currentIndex].Priority = 5;
-            
+
             Debug.Log("index : " + index + "currentIndex : " + currentIndex);
 
             currentIndex = index;
             Debug.Log($"[CameraManager] Switched to: {virtualCameras[index].name}");
         }
 
-
-        private IEnumerator PlayCinematic(int index, float duration)
+        // 외부 참조용 카메라
+        public void ActivateCamera(string name)
         {
-            isCinematicActive = true;
-
-            // 현재 카메라 기억
-            int prev = currentIndex;
-
-            // 컷신 카메라 활성화
-            ActivateCamera(index);
-            Debug.Log("🎬 컷신 시작!");
-
-            yield return new WaitForSeconds(duration);
-
-            // 항상 Player 카메라(0)로 복귀
-            ActivateCamera(0);
-            Debug.Log("🎬 컷신 종료 → 플레이어 카메라 복귀");
-
-            isCinematicActive = false;
+            if (name == "Player")
+            {
+                ActivateCamera(0);
+            }
+            if (name == "Dolly")
+            {
+                ActivateCamera(4);
+            }
+        }
+        
+        // 컷신용 카메라 참조 반환
+        public CinemachineCamera GetCinematicCamera()
+        {
+            if (virtualCameras.Length > 4)
+                return virtualCameras[4]; // 시네마틱 카메라 인덱스
+            else
+            {
+                Debug.LogError("Cinematic Camera가 virtualCameras에 없습니다!");
+                return null;
+            }
         }
 
     }
