@@ -11,17 +11,15 @@ namespace TestCamera
         [SerializeField] private CinemachineCamera[] virtualCameras;
         [SerializeField] private PlayerInputHandler inputHandler;
 
-        private int currentIndex = 0;
+        private int currentIndex = 4;
 
         private void Start()
         {
-            ActivateCamera(0); // Player 카메라 시작
+            ActivateCamera(4); // Player 카메라 시작
         }
 
         private void Update()
         {
-            // if (isCinematicActive || inputHandler == null) return;
-
             // 핸들러 입력 기반으로 전환
             if (inputHandler.Camera_PlayerPressed)
                 ActivateCamera(0);
@@ -31,6 +29,8 @@ namespace TestCamera
                 ActivateCamera(2);
             else if (inputHandler.Camera_NPC3Pressed)
                 ActivateCamera(3);
+            else if (inputHandler.Camera_CutScenePressed)
+                ActivateCamera(4);
         }
 
         private void ActivateCamera(int index)
@@ -59,7 +59,7 @@ namespace TestCamera
                 ActivateCamera(4);
             }
         }
-        
+
         // 컷신용 카메라 참조 반환
         public CinemachineCamera GetCinematicCamera()
         {

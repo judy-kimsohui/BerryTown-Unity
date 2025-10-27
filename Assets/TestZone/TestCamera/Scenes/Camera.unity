@@ -129,15 +129,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2496794838551064528, guid: 90b4cd4a390c94b12ba2c045d19fa220, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.9000015
+      value: -15.5
       objectReference: {fileID: 0}
     - target: {fileID: 2496794838551064528, guid: 90b4cd4a390c94b12ba2c045d19fa220, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 31.899998
+      value: 2.9
       objectReference: {fileID: 0}
     - target: {fileID: 2496794838551064528, guid: 90b4cd4a390c94b12ba2c045d19fa220, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -124.1
+      value: -22.3
       objectReference: {fileID: 0}
     - target: {fileID: 2496794838551064528, guid: 90b4cd4a390c94b12ba2c045d19fa220, type: 3}
       propertyPath: m_LocalRotation.w
@@ -812,7 +812,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
     Enabled: 1
-    m_Value: 20
+    m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -1045,7 +1045,7 @@ Transform:
   m_GameObject: {fileID: 1243556143}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000015207943, y: -0.000000004475523, z: -0.000000011072358, w: 1}
-  m_LocalPosition: {x: -7.9000015, y: 31.899998, z: -134.1}
+  m_LocalPosition: {x: -15.5, y: 2.9, z: -32.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1104,6 +1104,7 @@ MonoBehaviour:
   - {fileID: 1243556146}
   - {fileID: 1621947079}
   - {fileID: 347021133}
+  - {fileID: 1234506137}
   inputHandler: {fileID: 8864701334932209553}
 --- !u!1 &1350517936 stripped
 GameObject:
@@ -1214,7 +1215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
     Enabled: 1
-    m_Value: 10
+    m_Value: 5
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
