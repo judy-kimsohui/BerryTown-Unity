@@ -1,0 +1,13 @@
+플레이어를 타겟하는 카메라 설정
+- PlayerInput, Follow Camera
+- WASD에 따라 움직이는 카메라, S에서는 카메라가 플레이어의 회전에 대해 움직이지 않음
+- ClampAngle을 걸어야함
+
+- Move, Look, Zoom
+
+
+InputHandler
+CameraManager
+
+PlayerController - Move
+PlayerMainCamera - Look, Zoom
